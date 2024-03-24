@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         action="=";
     }
 
+
     public void clicked7(View view) {
         Intent intent = new Intent(this, MainActivity2.class);
         intent.putExtra("result", String.valueOf(result));
