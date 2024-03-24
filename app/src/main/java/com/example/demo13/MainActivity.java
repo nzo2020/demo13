@@ -28,25 +28,43 @@ public class MainActivity extends AppCompatActivity {
         bt6 = findViewById(R.id.bt6);
     }
     public void calcResult(){
-        if (action!="=") {
-            num = Double.parseDouble(etn1.getText().toString());
+        if (isValidNum()){
+            if (action!="=") {
+                num = Double.parseDouble(etn1.getText().toString());
+            }else{
+                num=0;
+            }
+            if (action=="+"){
+                result=result+num;
+            }
+            if (action=="-"){
+                result=result-num;
+            }
+            if (action=="*"){
+                result=result*num;
+            }
+            if (action=="/"){
+                result=result/num;
+            }
+        }
+
+
+
+    }
+
+    public boolean isValidNum(){
+        String input = etn1.getText().toString();
+        int count=0;
+        if(input.charAt(0)=='-' || (input.charAt(0)<='9' && input.charAt(0)>='0')){
+            for(int j=1; j<input.length(); j++){
+                if (input.charAt(j)>'9' || input.charAt(j)<'0'){
+                    return false;
+                }
+            }
         }else{
-            num=0;
+            return false;
         }
-        if (action=="+"){
-            result=result+num;
-        }
-        if (action=="-"){
-            result=result-num;
-        }
-        if (action=="*"){
-            result=result*num;
-        }
-        if (action=="/"){
-            result=result/num;
-        }
-
-
+        return true;
     }
 
     public void clickedAdd(View view) {
@@ -88,9 +106,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clicked7(View view) {
-        // Go to MainActivity2 and pass result
         Intent intent = new Intent(this, MainActivity2.class);
-        intent.putExtra("result", String.valueOf(num));
+        intent.putExtra("result", String.valueOf(result));
         startActivity(intent);
     }
 }
