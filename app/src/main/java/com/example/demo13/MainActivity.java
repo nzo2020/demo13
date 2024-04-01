@@ -44,8 +44,14 @@ public class MainActivity extends AppCompatActivity {
             if (action=="*"){
                 result=result*num;
             }
-            if (action=="/"){
-                result=result/num;
+            if (action=="/" ){
+                if (num!=0){
+                    result=result/num;
+                }else{
+                    Toast.makeText(this, "wrong input", Toast.LENGTH_SHORT).show();
+                    result=0;
+                    action="+";
+                }
             }
         }else{
             Toast.makeText(this, "wrong input", Toast.LENGTH_SHORT).show();
