@@ -121,11 +121,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickedEqual(View view) {
-        num = Double.parseDouble(etn1.getText().toString());
-        calcResult();
-        etn1.setText(String.valueOf(result));
-        action="=";
+        if (!etn1.getText().toString().isEmpty()) {
+            num = Double.parseDouble(etn1.getText().toString());
+            calcResult();
+            etn1.setText(String.valueOf(result));
+            action = "=";
+        } else {
+            action = "+";
+        }
     }
+
 
 
     public void clicked7(View view) {
