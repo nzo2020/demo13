@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     double num = 0, result = 0;
@@ -46,7 +47,13 @@ public class MainActivity extends AppCompatActivity {
             if (action=="/"){
                 result=result/num;
             }
+        }else{
+            Toast.makeText(this, "wrong input", Toast.LENGTH_SHORT).show();
+            result=0;
+            num=0;
+            action="+";
         }
+
 
 
 
@@ -54,10 +61,19 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean isValidNum(){
         String input = etn1.getText().toString();
-        int count=0;
-        if(input.charAt(0)=='-' || (input.charAt(0)<='9' && input.charAt(0)>='0')){
+        int countP=0;
+        if(input.charAt(0)=='-' || (input.charAt(0)<='9' && input.charAt(0)>='0')|| (input.charAt(0)=='.')){
+            if (input.charAt(0)=='.'){
+                countP++;
+            }
             for(int j=1; j<input.length(); j++){
                 if (input.charAt(j)>'9' || input.charAt(j)<'0'){
+                    return false;
+                }
+                if (input.charAt(j)=='.'){
+                    countP++;
+                }
+                if (countP>1){
                     return false;
                 }
             }
