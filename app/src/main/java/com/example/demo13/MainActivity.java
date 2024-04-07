@@ -12,7 +12,6 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     double num = 0, result = 0;
     String action="+";
-    Button bt1, bt2, bt3, bt4, bt5, bt6;
     EditText etn1;
 
     @Override
@@ -21,12 +20,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         etn1 = findViewById(R.id.etn1);
-        bt1 = findViewById(R.id.bt1);
-        bt2 = findViewById(R.id.bt2);
-        bt3 = findViewById(R.id.bt3);
-        bt4 = findViewById(R.id.bt4);
-        bt5 = findViewById(R.id.bt5);
-        bt6 = findViewById(R.id.bt6);
     }
     public void calcResult(){
         if (isValidNum()){
@@ -68,20 +61,26 @@ public class MainActivity extends AppCompatActivity {
     public boolean isValidNum(){
         String input = etn1.getText().toString();
         int countP=0;
-        if(input.charAt(0)=='-' || (input.charAt(0)<='9' && input.charAt(0)>='0')|| (input.charAt(0)=='.')){
-            if (input.charAt(0)=='.'){
-                countP++;
-            }
-            for(int j=1; j<input.length(); j++){
-                if (input.charAt(j)>'9' || input.charAt(j)<'0'){
-                    return false;
-                }
-                if (input.charAt(j)=='.'){
+        if (!input.isEmpty()) {
+            if ((input.charAt(0) == '-' && input.length()>1) || (input.charAt(0) <= '9' && input.charAt(0) >= '0') || (input.charAt(0) == '.')) {
+                if (input.charAt(0) == '.') {
                     countP++;
                 }
-                if (countP>1){
-                    return false;
+                for (int j = 1; j < input.length(); j++) {
+                    if (input.charAt(j) > '9' || input.charAt(j) < '0') {
+                        if (input.charAt(j) == '.') {
+                            countP++;
+                        }else{
+                            return false;
+                        }
+                    }
+
+                    if (countP > 1) {
+                        return false;
+                    }
                 }
+            } else {
+                return false;
             }
         }else{
             return false;
@@ -90,26 +89,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickedAdd(View view) {
-        calcResult();
-        etn1.setText("");
+        if (!etn1.getText().toString().isEmpty()){
+            calcResult();
+            etn1.setText("");
+        }
         action="+";
     }
 
     public void clickedSub(View view) {
-        calcResult();
-        etn1.setText("");
+        if (!etn1.getText().toString().isEmpty()){
+            calcResult();
+            etn1.setText("");
+        }
         action="-";
     }
 
     public void clickedMul(View view) {
-        calcResult();
-        etn1.setText("");
+        if (!etn1.getText().toString().isEmpty()) {
+            calcResult();
+            etn1.setText("");
+        }
         action="*";
     }
 
     public void clickedDiv(View view) {
-        calcResult();
-        etn1.setText("");
+        if (!etn1.getText().toString().isEmpty()) {
+            calcResult();
+            etn1.setText("");
+        }
         action="/";
     }
 
@@ -124,11 +131,9 @@ public class MainActivity extends AppCompatActivity {
         if (!etn1.getText().toString().isEmpty()) {
             num = Double.parseDouble(etn1.getText().toString());
             calcResult();
-            etn1.setText(String.valueOf(result));
-            action = "=";
-        } else {
-            action = "+";
         }
+        etn1.setText(String.valueOf(result));
+        action = "=";
     }
 
 
