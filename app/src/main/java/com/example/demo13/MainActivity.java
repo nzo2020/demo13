@@ -59,33 +59,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean isValidNum(){
-        String input = etn1.getText().toString();
-        int countP=0;
-        if (!input.isEmpty()) {
-            if ((input.charAt(0) == '-' && input.length()>1) || (input.charAt(0) <= '9' && input.charAt(0) >= '0') || (input.charAt(0) == '.')) {
-                if (input.charAt(0) == '.') {
-                    countP++;
-                }
-                for (int j = 1; j < input.length(); j++) {
-                    if (input.charAt(j) > '9' || input.charAt(j) < '0') {
-                        if (input.charAt(j) == '.') {
-                            countP++;
-                        }else{
-                            return false;
-                        }
-                    }
+            String input = etn1.getText().toString();
 
-                    if (countP > 1) {
-                        return false;
-                    }
-                }
-            } else {
-                return false;
-            }
-        }else{
-            return false;
-        }
-        return true;
+            return !((input.equals("")) ||
+                    (input.equals("-") )||
+                    (input.equals(".")) ||
+                    (input.equals("+")) ||
+                    (input.equals("-.")));
     }
 
     public void clickedAdd(View view) {
